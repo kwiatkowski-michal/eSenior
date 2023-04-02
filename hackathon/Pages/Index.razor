@@ -1,0 +1,169 @@
+﻿@page "/"
+@inject NavigationManager navManager
+@using Microsoft.JSInterop
+@inject IJSRuntime JS
+
+
+
+<div class="container-fluid">
+    <div class="row align-items-center mt-5">
+        <img src="./images/lego.svg" height="50" alt="logo">
+    </div>
+</div>
+<div class="container mt-4">
+    <div class="row row-cols-1 gap-3">
+        <div class="col">
+            <input class="form-control form-control-lg" placeholder="Kliknij tutaj, aby wyszukać wprowadzoną frazę" type="text" name="search-box"
+                   id="search-box" @oninput="(e) => OnSearchInput((string)e.Value)">
+        </div>
+        <div class="col rounded-4 btn-group-lg btn-group">
+            <button id="speak-btn" @onmousedown="() => { OnStartRecording();}" @onmouseup="() => { OnEndRecording();}" class="btn btn-dark" type="button">
+                <span class="bi bi-mic fw-semibold fs-2">
+                    Kliknij, by mówić
+                </span>
+            </button>
+        </div>
+
+    </div>
+</div>
+
+<div class="container mt-4">
+    <div class="row row-cols-1 row-cols-lg-2 g-4">
+        @if (selectedElements.Contains("Klub seniora"))
+        {
+            <a class="col text-decoration-none" @onclick="(() => OpenKlub())">
+                <div class="c-1 rounded-4 p-4">
+                    <div>
+                        <h1 class="fw-semibold text-white">Klub seniora</h1>
+                    </div>
+                    <div><i class="fa fa-newspaper mt-2"></i></div>
+                </div>
+            </a>
+        }
+        @if (selectedElements.Contains("Znajdź lekarza"))
+        {
+            <a class="col text-decoration-none" @onclick="(() => Openlekarz())">
+                <div class="c-2 rounded-4 p-4 ">
+                    <div>
+                        <h1 class="fw-semibold text-white">Znajdź lekarza</h1>
+                    </div>
+                    <div><i class="fa fa-user-doctor mt-2"></i></div>
+                </div>
+            </a>
+        }
+        @if (selectedElements.Contains("Wydarzenia kulturalne"))
+        {
+            <a class="col text-decoration-none" @onclick="(() => OpenWyd())">
+                <div class="c-3 rounded-4 p-4">
+                    <div>
+                        <h1 class="fw-semibold text-white">Centrum kultury</h1>
+                    </div>
+                    <div><i class="fa bi-music-note mt-2"></i></div>
+                </div>
+            </a>
+        }
+        @if (selectedElements.Contains("Moje zdrowie"))
+        {
+            <a class="col text-decoration-none" @onclick="(() => OpenZdrowie())">
+                <div class="c-4 rounded-4 p-4">
+                    <div>
+                        <h1 class="fw-semibold text-white">Moje zdrowie</h1>
+                    </div>
+                    <div><i class="fa fa-heart-pulse mt-2"></i></div>
+                </div>
+            </a>
+        }
+        @if (selectedElements.Contains("Gotowanie"))
+        {
+            <a class="col text-decoration-none isDisabled">
+                <div class="c-5 rounded-4 p-4">
+                    <div>
+                        <h1 class="fw-semibold text-white">Gotowanie</h1>
+                    </div>
+                    <div><i class="fa fa-bowl-food mt-2"></i></div>
+                </div>
+            </a>
+        }
+        @if (selectedElements.Contains("Notatnik"))
+        {
+            <a class="col text-decoration-none isDisabled">
+                <div class="c-6 rounded-4 p-4">
+                    <div>
+                        <h1 class="fw-semibold text-white">Notatnik</h1>
+                    </div>
+                    <div><i class="fa fa-paperclip mt-2"></i></div>
+                </div>
+            </a>
+        }
+    </div>
+</div>
+<div class="container-fluid mt-4 p-3 bg-body-tertiary">
+    <footer class="container">
+        <div class="row">
+            <div>
+                &copy; Hackathon 2023 - eSenior
+            </div>
+        </div>
+    </footer>
+</div>
+
+
+
+@code {
+    private string searchtext = "";
+    private List<string> elementy = new List<string>() { "Klub seniora", "Znajdź lekarza", "Wydarzenia kulturalne", "Moje zdrowie", "Gotowanie", "Notatnik" };
+    private List<string> selectedElements = new List<string>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        JS.InvokeVoidAsync("getMicrophonePermission");
+        selectedElements = elementy;
+    }
+
+    private async void OnSearchInput(string searchInput)
+    {
+        searchtext = searchInput;
+        selectedElements = elementy.FindAll(x => x.ToLower().Replace(" ", "").Contains(searchInput.Replace(" ", "")));
+
+    }
+
+
+
+
+    private void Openlekarz()
+    {
+        navManager.NavigateTo($"/lekarz");
+    }
+    private void OpenJedzenie()
+    {
+        navManager.NavigateTo($"/Jedzenie");
+    }
+
+
+    private void OpenWyd()
+    {
+        navManager.NavigateTo($"/wydarzenia");
+    }
+
+    private void OpenKlub()
+    {
+        navManager.NavigateTo($"/KlubSeniora");
+    }
+
+    private void OnStartRecording()
+    {
+        JS.InvokeVoidAsync("startRecording");
+    }
+
+    private void OnEndRecording()
+    {
+        var d = JS.InvokeAsync<string>("endRecording");
+    }
+
+
+
+    private void OpenZdrowie()
+    {
+        navManager.NavigateTo($"/Zdrowie");
+    }
+}

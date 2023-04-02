@@ -1,0 +1,73 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&family=Raleway:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@100;300;400;500;700;900&display=swap');
+
+:root {
+    --color-1: #660000;
+    --color-2: #DB2B39;
+    --color-3: #7E52A0;
+    --color-4: #3d85c6;
+    --color-5: #e69138;
+    --color-6: #e6c000;
+}
+
+.fa {
+    color: white;
+    font-size: 4.5rem;
+}
+
+.fwhite {
+    color: white;
+}
+
+.isDisabled {
+    color: currentColor;
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.btn-main-1, .btn-dark {
+    --bs-btn-border-radius: 10px;
+    --bs-btn-font-weight: 600;
+    --bs-btn-color: white;
+    --bs-btn-bg: var(--color-1);
+    --bs-btn-border-color: var(--color-1);
+    --bs-btn-hover-color: white;
+    --bs-btn-hover-bg: var(--color-1);
+    --bs-btn-hover-border-color: none;
+    --bs-btn-focus-shadow-rgb: none;
+    --bs-btn-active-color: white;
+    --bs-btn-active-bg: var(--color-1);
+    --bs-btn-active-border-color: none;
+    --bs-btn-font-family: var(--font-family);
+}
+
+.container {
+    font-family: 'Montserrat', sans-serif;
+}
+
+.c-1 {
+    background-color: var(--color-1);
+}
+
+.c-2 {
+    background-color: var(--color-2);
+}
+
+.c-3 {
+    background-color: var(--color-3);
+}
+
+.c-4 {
+    background-color: var(--color-4);
+}
+
+.c-5 {
+    background-color: var(--color-5);
+}
+
+.c-6 {
+    background-color: var(--color-6);
+}
+
+.input-group {
+    border-radius: 10px;
+}

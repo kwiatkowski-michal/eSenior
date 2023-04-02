@@ -1,0 +1,9 @@
+﻿@page "/Jedzenie"
+@inject NavigationManager navManager
+<button @onclick="(()=>wroc())">Powrót do strony głównej</button>
+@code {
+    private void wroc()
+    {
+        navManager.NavigateTo($"/");
+    }
+}

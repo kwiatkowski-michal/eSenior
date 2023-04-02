@@ -1,0 +1,150 @@
+﻿@page "/wydarzenia"
+@inject NavigationManager navManager
+<div class="container">
+    <header class="row p-4">
+        <div class="col col-6">
+            <a @onclick="(()=>wroc())" class="btn btn-dark"><span class="bi bi-arrow-left me-1"></span>Powrót</a>
+        </div>
+        <div class="col col-6 text-end">
+            <img src="./images/lego.svg" width="130" alt="logo">
+        </div>
+
+    </header>
+</div>
+<div class="container">
+  <div class="row">
+      <div class="album py-2">
+        <div class="row row-cols-1 row-cols-lg-3 row-cols-md-2 g-4">
+          <div class="col">
+            <div id="Wniosek o przywrócenie wykreślonych z budżetu inwestycji" class="card trans-1">
+              <img src="./images/wielkanoc.jpg" class="bd-placeholder-img card-img-top" width="100%"
+                         height="100%" preserveAspectRatio="xMidYMid slice" focusable="false" />
+              <div class="card-body">
+                <p class="card-text fs-3">
+                            WIELKANOCNY KIERMASZ ŚWIĄTECZNY
+                </p>
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="btn-group">
+                                <a href="https://www.bydgoszcz.pl/kultura/kalendarium-imprez/wydarzenie/info/2023/04/-/id/26549/" target="_blank"
+                      class="btn btn-dark btn-main-1 trans-sm-1">Zobacz</a>
+                  </div>
+                            <small class="text-body-secondary"> 2023-04-01</small>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div id="Wniosek o wykreślenie zadań" class="card trans-2">
+              <img src="./images/spacer.jpg" class="bd-placeholder-img card-img-top"
+                         width="100%" height="100%" focusable="false" />
+              <div class="card-body">
+                <p class="card-text fs-3">
+                            Kalendarium imprez
+                            Spacer "Bydgoskie osiedla bez tajemnic": Błonie
+                </p>
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="btn-group">
+                                <a type="button" href="https://www.bydgoszcz.pl/kultura/kalendarium-imprez/wydarzenie/info/2023/04/-/id/26513/" target="_blank"
+                      class="btn btn-dark btn-main-1 trans-sm-1">Zobacz</a>
+                  </div>
+                            <small class="text-body-secondary">2023-04-01</small>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div id="Zmiany na liniach autobusowych" class="card trans-1">
+              <img src="./images//spektakl.jpg" class="bd-placeholder-img card-img-top" width="100%"
+                         height="100%" focusable="false" />
+              <div class="card-body">
+                <p class="card-text fs-3">
+                            Kalendarium imprez
+                            Komediantka - spektakl
+                </p>
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="btn-group">
+                                <a href="https://www.bydgoszcz.pl/kultura/kalendarium-imprez/wydarzenie/info/2023/04/-/id/26701/" target="_blank"
+                      class="btn btn-dark btn-main-1 trans-sm-1">Zobacz</a>
+              
+                  </div>
+                            <small class="text-body-secondary">2023-04-01 </small>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card trans-2">
+              <img src="./images//sezon.jpg" class="bd-placeholder-img card-img-top" width="100%" height="100%"
+                focusable="false" />
+              <div class="card-body">
+                <p class="card-text fs-3">
+                            Kalendarium imprez
+                            Inauguracja Sezonu Turystycznego 2023 z Bydgoską Masą Krytyczną
+                </p>
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="btn-group">
+                                <a type="button" href="https://www.bydgoszcz.pl/kultura/kalendarium-imprez/wydarzenie/info/2023/04/-/id/26611/" target="_blank"
+                      class="btn btn-dark btn-main-1 trans-sm-1">Zobacz</a>
+                  </div>
+                            <small class="text-body-secondary">2023-04-02</small>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div id="Światłowód w Kruszynie - wnioski i petycje" class="card trans-1">
+              <img src="./images//2jarmark.jpg" class="bd-placeholder-img card-img-top" width="100%"
+                         height="100%" preserveAspectRatio="xMidYMid slice" focusable="false" />
+              <div class="card-body">
+                <p class="card-text fs-3">
+                            Kalendarium imprez
+                            II Akademicki Jarmark Wielkanocny
+                </p>
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="btn-group">
+                                <a href="https://www.bydgoszcz.pl/kultura/kalendarium-imprez/wydarzenie/info/2023/04/-/id/26558/" target="_blank"
+                      class="btn btn-dark btn-main-1 trans-sm-1">Zobacz</a>
+                  </div>
+                            <small class="text-body-secondary">2023-04-02</small>
+                </div>
+              </div>
+            </div>
+          </div>
+            <div class="col">
+                <div id="Światłowód w Kruszynie - wnioski i petycje" class="card trans-1">
+                    <img src="./images/opera.jpg" class="bd-placeholder-img card-img-top" width="100%"
+                         height="100%" preserveAspectRatio="xMidYMid slice" focusable="false" />
+                    <div class="card-body">
+                        <p class="card-text fs-3">
+                            Kalendarium imprez
+                            Cyganeria - opera
+                        </p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <a href="https://www.bydgoszcz.pl/kultura/kalendarium-imprez/wydarzenie/info/2023/04/-/id/26615/" target="_blank"
+                                   class="btn btn-dark btn-main-1 trans-sm-1">Zobacz</a>
+                            </div>
+                            <small class="text-body-secondary">2023-04-02</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+ </div>
+<div class="container-fluid mt-4 p-3 bg-body-tertiary">
+    <footer class="container">
+        <div class="row">
+            <div>
+                &copy; Hackathon 2023 - eSenior
+            </div>
+        </div>
+    </footer>
+</div>
+@code {
+    private void wroc()
+    {
+        navManager.NavigateTo($"/");
+    }
+}

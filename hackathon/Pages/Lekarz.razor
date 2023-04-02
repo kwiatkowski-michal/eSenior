@@ -1,0 +1,122 @@
+﻿@page "/Lekarz"
+@using Microsoft.AspNetCore.Components.Forms
+@using hackathon.Models
+@inject NavigationManager navManager
+
+@inject IHttpClientFactory clientFactory
+
+
+<div class="container">
+    <header class="row p-4">
+        <div class="col col-6">
+            <a @onclick="(()=>wroc())" class="btn btn-dark"><span class="bi bi-arrow-left me-1"></span>Powrót</a>
+        </div>
+        <div class="col col-6 text-end">
+            <img src="./images/lego.svg" width="130" alt="logo">
+        </div>
+
+    </header>
+</div>
+<div class="container p-4">
+    <EditForm Model="zapisy" OnValidSubmit="Search">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+        <div class="mb-3">
+            <h1 class="form-label fw-semibold">Gdzie mieszkasz? Wybierz województwo zamieszkania z listy</h1>
+            <InputSelect class="fs-3 form-select" @bind-Value="zapisy.woj">
+                <option value="01">dolnośląskie</option>
+                <option value="02">Kujawsko-Pomorskie</option>
+                <option value="03"> lubelskie</option>
+                <option value="04">lubuskie</option>
+                <option value="05"> łódzkie</option>
+                <option value="06">małopolskie</option>
+                <option value="07">mazowieckie</option>
+                <option value="08">opolskie</option>
+                <option value="09">podkarpackie</option>
+                <option value="10">podlaskie</option>
+                <option value="11">pomorskie</option>
+                <option value="12"> śląskie</option>
+                <option value="13">świętokrzyskie</option>
+                <option value="14">warmińsko-mazurskie</option>
+                <option value="15">wielkopolskie</option>
+                <option value="16">zachodniopomorskie</option>
+            </InputSelect>
+        </div>
+        <div class="mb-3">
+            <h1 class="form-label fw-semibold">Oraz wpisz poniżej miasto</h1>
+            <InputText class="form-control fs-3" id="post-text" @bind-Value="zapisy.miejsc" />
+        </div>
+
+        <div class="mb-3">
+            <h1 class="form-label fw-semibold">Do jakiego lekarza chcesz się udać? Wpisz poniżej</h1>
+            <InputText class="form-control fs-3" id="post-text" @bind-Value="zapisy.kierunek" />
+        </div>
+
+
+        <div class="center-childeren">
+            <button class="btn btn-dark fw-semibold btn-lg text-uppercase" type="submit">Potwierdź</button>
+        </div>
+    </EditForm>
+</div>
+
+@if (wizyty is not null)
+{
+    @foreach (var e in wizyty)
+    {
+        <div class="container c-2 p-5 rounded-4 fwhite mb-4">
+            <p class="fs-1 fw-semibold ">@e.benefit</p>
+            <p class="fs-5">@e.provider</p>
+            <span class="fs-4">Adres:</span>
+            <p class="fs-4">@e.locality, @e.address</p>
+            <a class="text-decoration-none fwhite fw-semibold fs-4" href="tel:@e.phone">Telefon: @e.phone<br>(Kliknij tutaj, by zadzwonić do przychodni)</a>
+        </div>
+    }
+}
+
+<div class="container-fluid mt-4 p-3 bg-body-tertiary">
+    <footer class="container">
+        <div class="row">
+            <div>
+                &copy; Hackathon 2023 - eSenior
+            </div>
+        </div>
+    </footer>
+</div>
+
+@code
+{
+    private zapisy zapisy = new();
+
+
+
+    private List<WizytaModel> wizyty = new List<WizytaModel>();
+    private HttpClient cli;
+    protected override async Task OnInitializedAsync()
+    {
+        cli = clientFactory.CreateClient();
+        cli.BaseAddress = new Uri("https://localhost:7112");
+
+    }
+
+    public async Task<List<WizytaModel>> GetWizytaModels(zapisy s)
+    {
+        return await cli.GetFromJsonAsync<List<WizytaModel>>($"{s.woj}/{s.kierunek}/{s.miejsc}");
+    }
+
+    private async Task Search()
+    {
+        zapisy s = new();
+        s.woj = zapisy.woj;
+        s.kierunek = zapisy.kierunek;
+        s.miejsc = zapisy.miejsc;
+        wizyty = await GetWizytaModels(s);
+    }
+
+    private void wroc()
+    {
+        navManager.NavigateTo($"/");
+    }
+
+}
+
+

@@ -1,0 +1,84 @@
+﻿@page "/Zdrowie"
+@using hackathon.Models;
+@using hackathon.DataAccess;
+@using Microsoft.AspNetCore.Components.Forms
+@inject NavigationManager navManager
+
+        
+<div class="container">
+    <header class="row p-4">
+        <div class="col col-6">
+            <a @onclick="(()=>wroc())" class="btn btn-dark"><span class="bi bi-arrow-left me-1"></span>Powrót</a>
+        </div>
+        <div class="col col-6 text-end">
+            <img src="./images/lego.svg" width="130" alt="logo">
+        </div>
+
+    </header>
+</div>
+<div class="container p-4">
+<EditForm Model="cukierek" OnValidSubmit="Save">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+           <h1>Podaj poziom cukru:</h1>
+            <div class="input-group">
+            <InputNumber class="fs-3 form-control" id="post-text" @bind-Value="cukierek.cukier" />
+            <span class="input-group-text">mg/dl</span>
+        </div>
+        <h1 class="mt-2">Podaj ciśnienie tętnicze:</h1>
+        <div class="input-group">
+            <InputNumber class="fs-3 form-control" id="post-text" @bind-Value="cukierek.cosnienie" />
+            <span class="input-group-text">mm Hg</span>
+        </div>
+        <h1 class="mt-2">Data pomiaru:</h1>
+        <InputDate class="fs-3 form-control" @bind-Value="cukierek.DateOf" />
+
+    <div class="center-childeren">
+            <button class="btn btn-dark mt-4 btn-lg text-uppercase" type="submit">Potwierdź</button>
+    </div>
+</EditForm>
+</div>
+@if (tablica is not null)
+{
+    @foreach (var e in tablica)
+    {
+        <div class="container c-4 rounded-4 mt-4 p-5">
+            <p class="fs-2">Data i godzina pomiaru: <span class="fw-semibold">@e.DateOf</span></p>
+            <p class="fs-2">Ciśnienie tętnicze: <span class="fw-semibold">@e.cosnienie mm Hg</span></p>
+            <p class="fs-2">Cukier we krwi: <span class="fw-semibold">@e.cukier mg/dl</span></p>
+        </div>
+    }
+}
+
+<div class="container-fluid mt-4 p-3 bg-body-tertiary">
+    <footer class="container">
+        <div class="row">
+            <div>
+                &copy; Hackathon 2023 - eSenior
+            </div>
+        </div>
+    </footer>
+</div>
+@code {
+    private CukierIcisnienie cukierek = new() { DateOf = DateTime.Now };
+    private List<CukierIcisnienie> tablica = new List<CukierIcisnienie>();
+    protected override async Task OnInitializedAsync()
+    {
+        tablica = InformacjeZdrowotneContext.GetData();
+    }
+    private void Save()
+    {
+        CukierIcisnienie zdr = new();
+        zdr.DateOf = cukierek.DateOf;
+        zdr.cosnienie = cukierek.cosnienie;
+        zdr.cukier = cukierek.cukier;
+        tablica.Add(zdr);
+
+        InformacjeZdrowotneContext.SaveData(tablica);
+    }
+
+    private void wroc()
+    {
+        navManager.NavigateTo($"/");
+    }
+}
